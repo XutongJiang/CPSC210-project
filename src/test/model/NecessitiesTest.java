@@ -12,7 +12,7 @@ public class NecessitiesTest {
     @BeforeEach
     public void setUp() {
         tns = new Necessities();
-        tn = new Necessity("test", 0, 0, 2020, 7,26);
+        tn = new Necessity("test", 0, 0);
     }
 
     @Test
@@ -26,7 +26,7 @@ public class NecessitiesTest {
     @Test
     public void testAddAlreadyExists() {
         boolean test = tns.addNecessity(tn);
-        Necessity tn2 = new Necessity("test", 1,1, 2020, 7, 26);
+        Necessity tn2 = new Necessity("test", 1,1);
         boolean test2 = tns.addNecessity(tn2);
         assertFalse(test2);
     }

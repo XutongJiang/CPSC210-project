@@ -8,7 +8,7 @@ public class Necessity {
     private String name;
     private double dailyUsage;
     private double amount;
-    private Calendar now = Calendar.getInstance();
+    private Date now;
 
     // REQUIRES: both amount and dailyUsage >= 0,
     //           y, m, d together form a valid date.
@@ -16,11 +16,11 @@ public class Necessity {
     //          daily usage is set to usage,
     //          remaining amount of necessity is set to amt,
     //          current date is set to y, m, d
-    public Necessity(String nam, double usage, double amt, int y, int m, int d) {
+    public Necessity(String nam, double usage, double amt) {
         this.name = nam;
         this.dailyUsage = usage;
         this.amount = amt;
-        now.set(y, m - 1, d);
+        now = new Date();
     }
 
     public String getName() {

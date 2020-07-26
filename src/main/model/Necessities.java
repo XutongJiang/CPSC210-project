@@ -47,7 +47,8 @@ public class Necessities {
         }
     }
 
-    //
+    //REQUIRES: the necessity with give name must have been found in the list
+    //EFFECTS: returns the amount of the necessity with the given name
     public double returnSpecificAmount(String s) {
         for (Necessity i : necessities) {
             if (s.equals(i.getName())) {
@@ -57,7 +58,8 @@ public class Necessities {
         return 0.0;
     }
 
-    //
+    //REQUIRES: the necessity with give name must have been found in the list
+    //EFFECTS: returns the daily usage of the necessity with the given name
     public double returnSpecificUsage(String s) {
         for (Necessity i : necessities) {
             if (s.equals(i.getName())) {
@@ -67,7 +69,8 @@ public class Necessities {
         return 0.0;
     }
 
-    //
+    //REQUIRES: the necessity with give name must have been found in the list
+    //EFFECTS: returns the remaining days of the necessity with the given name
     public int returnRemainingDay(String s) {
         for (Necessity i : necessities) {
             if (s.equals(i.getName())) {

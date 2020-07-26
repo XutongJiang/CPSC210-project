@@ -10,7 +10,7 @@ class NecessityTest {
 
     @BeforeEach
     public void setUp() {
-        tn = new Necessity("test", 0.0, 0.0, 2020, 7, 26);
+        tn = new Necessity("test", 0.0, 0.0);
     }
 
     @Test
