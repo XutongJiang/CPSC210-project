@@ -1,11 +1,16 @@
-# My Personal Project
+# My Personal Project - A necessities manager
+#### *Xutong Jiang*
 
-## A subtitle
+##**Proposal**
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+Since the pandemic outbroke, people have been stuck in home for a long time. Sometimes, we may suddenly find that some 
+necessities run out and it may be hard to get them immediately, so a necessities' manager will be a big help to 
+remind us current amount of necessities which should be typed in by users after each purchase, and what necessities will 
+run out soon and thus make a purchase as soon as possible.
 
-An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
-the bold and italic fonts correctly but they will appear correctly on GitHub.
+##**User Stories**
+
+- 
+- 
+- 
+-
