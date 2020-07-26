@@ -10,10 +10,9 @@ run out soon and thus make a purchase as soon as possible.
 
 ## **User Stories**
 
-- As a user, I want to be able to add, remove (no longer needed) or modify necessities and their amount after each
- purchase. 
-- As a user, I want to be able to view the current list of necessities and their remaining amount.
+- As a user, I want to be able to add, remove (no longer needed) necessities.
+- As a user, I want to be able to modify necessities' amount and latest modified time after purchase.
 - As a user, I want to be able to set an estimation of average daily usage of each necessity and reduce their amount 
-daily based on it.
-- As a user, I want to be able to receive alert when certain necessity is going to run out in a week.
-- As a user, I would like to know exactly the necessity is going to run out.
+every day I refresh.
+- As a user, I want to be able to check what necessities will run out recently (like 7 days).
+- As a user, I would like to know how many days later one certain necessity is going to run out.

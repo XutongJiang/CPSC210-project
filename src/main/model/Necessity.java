@@ -1,19 +1,26 @@
 package model;
 
+import java.util.Calendar;
+import java.util.Date;
+
 // Represents a necessity of life with its name, average daily usage and remaining amount
 public class Necessity {
     private String name;
     private double dailyUsage;
     private double amount;
+    private Calendar now = Calendar.getInstance();
 
-    // REQUIRES: both amount and dailyUsage >= 0
+    // REQUIRES: both amount and dailyUsage >= 0,
+    //           y, m, d together form a valid date.
     // EFFECTS: name of the necessity is set to nam,
     //          daily usage is set to usage,
-    //          remaining amount of necessity is set to amt.
-    public Necessity(String nam, double usage, double amt) {
+    //          remaining amount of necessity is set to amt,
+    //          current date is set to y, m, d
+    public Necessity(String nam, double usage, double amt, int y, int m, int d) {
         this.name = nam;
         this.dailyUsage = usage;
         this.amount = amt;
+        now.set(y, m - 1, d);
     }
 
     public String getName() {
@@ -26,6 +33,10 @@ public class Necessity {
 
     public double getAmount() {
         return amount;
+    }
+
+    public int getRemainingDay() {
+        return (int) (amount / dailyUsage);
     }
 
     //MODIFIES: this
