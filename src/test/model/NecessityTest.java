@@ -32,4 +32,29 @@ class NecessityTest {
         double test = tn.getDailyUsage();
         assertEquals(test, 1.0);
     }
+
+    @Test
+    public void testGetName() {
+        assertEquals(tn.getName(), "test");
+    }
+
+    @Test
+    public void testGetAmount() {
+        assertEquals(tn.getAmount(), 0.0);
+    }
+
+    @Test
+    public void testGetRemainingDay() {
+        Necessity tn2 = new Necessity("test", 1.0, 10.0);
+        assertEquals(tn.getRemainingDay(), 0);
+        assertEquals(tn2.getRemainingDay(), 10);
+    }
+
+    @Test
+    public void testRunOutInWeek() {
+        Necessity tn2 = new Necessity("test", 1.0, 10.0);
+        Necessity tn3 = new Necessity("test", 1.0, 5.0);
+        assertFalse(tn2.runOutInWeek());
+        assertTrue(tn3.runOutInWeek());
+    }
 }
