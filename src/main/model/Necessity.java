@@ -70,4 +70,11 @@ public class Necessity {
         return amount / dailyUsage <= 7;
     }
 
+    public void updateNecessity() {
+        if (amount - dailyUsage <= 0.0) {
+            this.amount = 0.0;
+        } else {
+            this.amount = amount - dailyUsage;
+        }
+    }
 }

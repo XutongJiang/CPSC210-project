@@ -184,7 +184,8 @@ public class NecessitiesManager {
             System.out.println("All of the necessities in the list have been updated!");
         } else {
             if (currentList.checkNecessity(s)) {
-                currentList.returnGivenNecessity(s);
+                Necessity item = currentList.returnGivenNecessity(s);
+                item.updateNecessity();
                 System.out.println("The update has been done!");
             } else {
                 System.out.println("The necessity you are looking for does not exist in the necessities list, thus"
