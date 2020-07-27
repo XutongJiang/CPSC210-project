@@ -15,7 +15,7 @@ public class Necessity {
     // EFFECTS: name of the necessity is set to nam,
     //          daily usage is set to usage,
     //          remaining amount of necessity is set to amt,
-    //          current date is set to y, m, d
+    //          last checked date is set to y, m, d
     public Necessity(String nam, double usage, double amt) {
         this.name = nam;
         this.dailyUsage = usage;
@@ -39,6 +39,7 @@ public class Necessity {
         return (int) (amount / dailyUsage);
     }
 
+
     //MODIFIES: this
     //EFFECTS: change the current daily usage of a necessity
     public void setDailyUsage(double amt) {
@@ -58,6 +59,14 @@ public class Necessity {
             return false;
         }
     }
+
+    // REQUIRES: amount >= 0
+    // EFFECTS: return true if the necessity is gonna run out in a week
+    public boolean runOutInWeek() {
+        return amount / dailyUsage <= 7;
+    }
+
+
 
 
 }

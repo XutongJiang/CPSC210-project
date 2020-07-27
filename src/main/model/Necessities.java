@@ -92,4 +92,15 @@ public class Necessities {
         return null;
     }
 
+    //EFFECTS: return a list of necessities' name which will run out in a week
+    public LinkedList<String> runOutInWeekList(LinkedList<String> m) {
+        for (Necessity i : necessities) {
+            if (i.runOutInWeek()) {
+                m.add(i.getName());
+            }
+        }
+        return m;
+    }
+
+
 }
