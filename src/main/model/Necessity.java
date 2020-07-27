@@ -8,7 +8,6 @@ public class Necessity {
     private String name;
     private double dailyUsage;
     private double amount;
-    private Date now;
 
     // REQUIRES: both amount and dailyUsage >= 0,
     //           y, m, d together form a valid date.
@@ -20,7 +19,6 @@ public class Necessity {
         this.name = nam;
         this.dailyUsage = usage;
         this.amount = amt;
-        now = new Date();
     }
 
     public String getName() {
@@ -39,12 +37,18 @@ public class Necessity {
         return (int) (amount / dailyUsage);
     }
 
-
     //MODIFIES: this
-    //EFFECTS: change the current daily usage of a necessity
+    //EFFECTS: set the current daily usage of a necessity
     public void setDailyUsage(double amt) {
         this.dailyUsage = amt;
     }
+
+    //MODIFIES: this
+    //EFFECTS: set the current amount of a necessity
+    public void setAmount(double amt) {
+        this.amount = amt;
+    }
+
 
     // REQUIRES: amount >= 0
     // MODIFIES: this
@@ -52,10 +56,10 @@ public class Necessity {
     //          if the purchase not enough, returns false.
     public boolean makePurchase(double amt) {
         if ((this.amount + amt) >= (7 * this.dailyUsage)) {
-            this.amount = amount + amt;
+            setAmount(amount + amt);
             return true;
         } else {
-            this.amount = amount + amt;
+            setAmount(amount + amt);
             return false;
         }
     }
@@ -65,8 +69,5 @@ public class Necessity {
     public boolean runOutInWeek() {
         return amount / dailyUsage <= 7;
     }
-
-
-
 
 }

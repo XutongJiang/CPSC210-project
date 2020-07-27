@@ -30,26 +30,27 @@ public class NecessitiesManager {
         Scanner inp = new Scanner(System.in);
         System.out.println("How can I help? Please choose from the following two options by simply type a, b, c or d.");
         System.out.println("a. Check the status of one certain necessity.");
-        System.out.println("b. Update list.");
+        System.out.println("b. Make change on necessities.");
         System.out.println("c. Get a alert of what will run out in the following week.");
-        System.out.println("d. Refresh the daily status.");
+        System.out.println("d. Update list (Use it once a day unless you use extra amount).");
         System.out.println("e. Exit the program.");
         String selection = inp.nextLine();
         if (selection.equals("a")) {
             checkNecessities();
         } else if (selection.equals("b")) {
-            updatePurchase();
+            makeChangeNecessities();
         } else if (selection.equals("c")) {
             sendAlert();
         } else if (selection.equals("d")) {
-            refreshStatus();
+            updateList();
         } else {
             System.out.println("See you next time!");
         }
 
     }
 
-    //EFFECTS: let users check current status of a necessity if it exists in the list
+    //EFFECTS: let users check current status of a necessity if it exists in the list,
+    //         if the amount is <= 0, ask the user to make purchase until it is above 0
     public void checkNecessities() {
         System.out.println("What necessity would you like to check? Please type in the name "
                 + "with all characters in lowercase: ");
@@ -58,9 +59,14 @@ public class NecessitiesManager {
             double amt = currentList.returnSpecificAmount(checked);
             double du = currentList.returnSpecificUsage(checked);
             int day = currentList.returnRemainingDay(checked);
-            System.out.println(checked + "'s remaining amount is " + amt);
-            System.out.println(checked + "'s daily usage is " + du);
-            System.out.println(checked + "will run out in " + day + " days.");
+            if (amt == 0) {
+                System.out.println("There is not enough " + checked + " left, please make a purchase.");
+            } else {
+                System.out.println(checked + "'s remaining amount is " + amt);
+                System.out.println(checked + "'s daily usage is " + du);
+                System.out.println(checked + "will run out in " + day + " days.");
+            }
+
         } else {
             System.out.println("Sorry, we cannot find the necessity you just entered in the list, so we will go back "
                     + "to the main menu.");
@@ -70,7 +76,7 @@ public class NecessitiesManager {
     }
 
     //EFFECTS: let user choose from the three options which would make change to the list
-    public void updatePurchase() {
+    public void makeChangeNecessities() {
         System.out.println("Would you like to add or remove a necessity or just purchased some existed necessities?");
         System.out.println("a. add b. remove c. make purchase");
         String answer = input.next();
@@ -141,7 +147,7 @@ public class NecessitiesManager {
                         + "for more than a week.");
             } else {
                 System.out.println("The purchased amount has been successfully added but the remaining will still last"
-                        + " no more than a week");
+                        + " no more than a week.");
             }
         } else {
             System.out.println("The name you entered does not exist in the list, please use add method instead.");
@@ -164,12 +170,29 @@ public class NecessitiesManager {
         makeSelection();
     }
 
+    //REQUIRES: this can only be done once a day.
     //MODIFIES: this
-    //EFFECTS: set the last checked date of necessity to the system time,
-    //         and if the former date is one day or more before the system time,
-    //         subtract the corresponding daily cost from the amount
-    public void refreshStatus() {
-
+    //EFFECTS: subtract one daily amount from the remaining amount,
+    //         if after the subtract the amount will be below 0, then stop and ask the user to make a purchase
+    public void updateList() {
+        System.out.println("Please type the name of the necessity you want to update or type all if you want to"
+                + " update the whole list:");
+        Scanner inp = new Scanner(System.in);
+        String s = inp.nextLine();
+        if (s.equals("all")) {
+            currentList.updateNecessities();
+            System.out.println("All of the necessities in the list have been updated!");
+        } else {
+            if (currentList.checkNecessity(s)) {
+                currentList.returnGivenNecessity(s);
+                System.out.println("The update has been done!");
+            } else {
+                System.out.println("The necessity you are looking for does not exist in the necessities list, thus"
+                        + " we cannot update it.");
+            }
+        }
+        System.out.println();
+        makeSelection();
     }
 
 

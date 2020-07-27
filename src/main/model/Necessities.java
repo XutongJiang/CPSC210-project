@@ -102,5 +102,16 @@ public class Necessities {
         return m;
     }
 
+    //MODIFIES: this
+    //EFFECTS: update every necessity in the list by subtracting daily usage from remaining amount
+    public void updateNecessities() {
+        for (Necessity i : necessities) {
+            if (i.getAmount() - i.getDailyUsage() <= 0) {
+                i.setAmount(0);
+            } else {
+                i.setAmount(i.getAmount() - i.getDailyUsage());
+            }
+        }
+    }
 
 }
