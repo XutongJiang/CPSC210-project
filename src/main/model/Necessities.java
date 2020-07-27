@@ -38,9 +38,10 @@ public class Necessities {
     //MODIFIES: this
     //EFFECTS: remove a no longer needed necessity from the necessities list and returns true,
     //         if the necessity does not exist in the list, returns false
-    public boolean removeNecessity(Necessity n) {
-        if (checkNecessity(n.getName())) {
-            necessities.remove(n);
+    public boolean removeNecessity(String n) {
+        if (checkNecessity(n)) {
+            Necessity item = returnGivenNecessity(n);
+            necessities.remove(item);
             return true;
         } else {
             return false;
@@ -78,6 +79,17 @@ public class Necessities {
             }
         }
         return 0;
+    }
+
+    //REQUIRES: the necessity must be in the necessities list
+    //EFFECTS: return the necessity in the list with given name
+    public Necessity returnGivenNecessity(String n) {
+        for (Necessity i : necessities) {
+            if (n.equals(i.getName())) {
+                return i;
+            }
+        }
+        return null;
     }
 
 }

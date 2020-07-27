@@ -42,6 +42,7 @@ public class NecessitiesManager {
         } else {
             System.out.println("See you next time!");
         }
+
     }
 
     //
@@ -55,38 +56,87 @@ public class NecessitiesManager {
             int day = currentList.returnRemainingDay(checked);
             System.out.println(checked + "'s remaining amount is " + amt + ", daily usage is "
                     + du + " and will run out in " + day + " days.");
-            makeSelection();
         } else {
             System.out.println("Sorry, we cannot find the necessity you just entered in the list, so we will go back "
                     + "to the main menu.");
-            makeSelection();
         }
+        System.out.println();
+        makeSelection();
     }
 
     //
     public void updatePurchase() {
-        System.out.println("Would you like to add or remove a necessity or modify one?");
+        System.out.println("Would you like to add or remove a necessity or modify an existed one?");
         System.out.println("a. add b. remove c. modify");
         String answer = input.next();
         if (answer.equals("a")) {
-            System.out.println("Please type in the name of the necessity: ");
-            String name = input.next();
+            selectA();
+        } else if (answer.equals("b")) {
+            selectB();
+        } else if (answer.equals("c")) {
+            selectC();
+        } else {
+            System.out.println("You did not enter a valid option, you will be take back to main menu.");
+            System.out.println();
+            makeSelection();
+        }
+
+    }
+
+    //
+    private void selectA() {
+        System.out.println("Please type in the name of the necessity: ");
+        String name = input.next();
+        if (currentList.checkNecessity(name)) {
+            System.out.println("Sorry,the necessity you just entered has already existed in the list,"
+                    + " so we will go back to the main menu.");
+        } else {
             System.out.println("Then type in the daily estimate usage of the necessity (in the format: integer.0): ");
             double usage = input.nextDouble();
             System.out.println("Then type in the amount of the necessity (in the format: integer.0): ");
             double amt = input.nextDouble();
             Necessity addOne = new Necessity(name, usage, amt);
-            if (currentList.addNecessity(addOne)) {
-                System.out.println("Great! The necessity has been successfully added. We will go back to the main menu")
-                ;
-                makeSelection();
-            } else {
-                System.out.println("Sorry,the necessity you just entered has already existed in the list,"
-                        + " so we will go back to the main menu.");
-                makeSelection();
-            }
+            currentList.addNecessity(addOne);
+            System.out.println("Great! The necessity has been successfully added. We will go back to the main menu")
+            ;
         }
+        System.out.println();
+        makeSelection();
+    }
 
+    //
+    private void selectB() {
+        System.out.println("Please type in the name of the necessity: ");
+        String name = input.next();
+        if (currentList.removeNecessity(name)) {
+            System.out.println("Great! The necessity has been successfully removed. We will go back to the main menu")
+            ;
+        } else {
+            System.out.println("Sorry,the necessity you just entered does not exist in the list,"
+                    + " so we will go back to the main menu.");
+        }
+        System.out.println();
+        makeSelection();
+    }
+
+    //
+    private void selectC() {
+        System.out.println("Please type in the name of the necessity: ");
+        String name = input.next();
+        System.out.println("Then type in the daily estimate usage of the necessity (in the format: integer.0): ");
+        double usage = input.nextDouble();
+        System.out.println("Then type in the amount of the necessity (in the format: integer.0): ");
+        double amt = input.nextDouble();
+        Necessity addOne = new Necessity(name, usage, amt);
+        if (currentList.addNecessity(addOne)) {
+            System.out.println("Great! The necessity has been successfully added. We will go back to the main menu")
+            ;
+        } else {
+            System.out.println("Sorry,the necessity you just entered has already existed in the list,"
+                    + " so we will go back to the main menu.");
+        }
+        System.out.println();
+        makeSelection();
     }
 
     //

@@ -33,14 +33,14 @@ public class NecessitiesTest {
 
     @Test
     public void testRemoveNotAlreadyExists() {
-        boolean test = tns.removeNecessity(tn);
+        boolean test = tns.removeNecessity(tn.getName());
         assertFalse(test);
     }
 
     @Test
     public void testRemoveAlreadyExists() {
         boolean test = tns.addNecessity(tn);
-        boolean test2 = tns.removeNecessity(tn);
+        boolean test2 = tns.removeNecessity(tn.getName());
         assertTrue(test2);
         boolean test3 = tns.checkNecessity(tn.getName());
         assertFalse(test3);
