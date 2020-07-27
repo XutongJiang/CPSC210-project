@@ -82,11 +82,13 @@ public class NecessitiesTest {
     @Test
     public void testRunOutInWeekList() {
         Necessity tn2 = new Necessity("test2", 1.0, 5.0);
+        tns.addNecessity(tn);
         tns.addNecessity(tn2);
         LinkedList<String> tl = new LinkedList<>();
         tns.runOutInWeekList(tl);
         assertEquals(tl.size(), 1);
         assertTrue(tl.contains("test2"));
+        assertFalse(tl.contains("test"));
     }
 
     @Test
