@@ -24,7 +24,7 @@ public class NecessitiesManager {
         makeSelection();
     }
 
-        //EFFECTS: provide several selections and take to different result.
+    //EFFECTS: provide several selections and take to different result.
     private void makeSelection() {
         newList = new LinkedList<>();
         Scanner inp = new Scanner(System.in);
@@ -35,18 +35,29 @@ public class NecessitiesManager {
         System.out.println("d. Update list (Use it once a day unless you use extra amount).");
         System.out.println("e. Exit the program.");
         String selection = inp.nextLine();
-        if (selection.equals("a")) {
-            checkNecessities();
-        } else if (selection.equals("b")) {
-            makeChangeNecessities();
-        } else if (selection.equals("c")) {
-            sendAlert();
-        } else if (selection.equals("d")) {
-            updateList();
-        } else {
-            System.out.println("See you next time!");
-        }
+        makeSelection(selection);
 
+    }
+
+    //EFFECTS: make a selection from a to e
+    private void makeSelection(String selection) {
+        switch (selection) {
+            case "a":
+                checkNecessities();
+                break;
+            case "b":
+                makeChangeNecessities();
+                break;
+            case "c":
+                sendAlert();
+                break;
+            case "d":
+                updateList();
+                break;
+            default:
+                System.out.println("See you next time!");
+                break;
+        }
     }
 
     //EFFECTS: let users check current status of a necessity if it exists in the list,
@@ -64,7 +75,7 @@ public class NecessitiesManager {
             } else {
                 System.out.println(checked + "'s remaining amount is " + amt);
                 System.out.println(checked + "'s daily usage is " + du);
-                System.out.println(checked + "will run out in " + day + " days.");
+                System.out.println(checked + " will run out in " + day + " days.");
             }
 
         } else {
@@ -80,16 +91,21 @@ public class NecessitiesManager {
         System.out.println("Would you like to add or remove a necessity or just purchased some existed necessities?");
         System.out.println("a. add b. remove c. make purchase");
         String answer = input.next();
-        if (answer.equals("a")) {
-            selectA();
-        } else if (answer.equals("b")) {
-            selectB();
-        } else if (answer.equals("c")) {
-            selectC();
-        } else {
-            System.out.println("You did not enter a valid option, you will be take back to main menu.");
-            System.out.println();
-            makeSelection();
+        switch (answer) {
+            case "a":
+                selectA();
+                break;
+            case "b":
+                selectB();
+                break;
+            case "c":
+                selectC();
+                break;
+            default:
+                System.out.println("You did not enter a valid option, you will be take back to main menu.");
+                System.out.println();
+                makeSelection();
+                break;
         }
 
     }
@@ -181,7 +197,6 @@ public class NecessitiesManager {
         String s = inp.nextLine();
         if (s.equals("all")) {
             currentList.updateNecessities();
-            System.out.println("All of the necessities in the list have been updated!");
         } else {
             if (currentList.checkNecessity(s)) {
                 Necessity item = currentList.returnGivenNecessity(s);

@@ -55,7 +55,7 @@ public class Necessity {
     // EFFECTS: purchase a amount of certain necessity and add the amount to its remaining and returns true,
     //          if the purchase not enough, returns false.
     public boolean makePurchase(double amt) {
-        if ((this.amount + amt) >= (7 * this.dailyUsage)) {
+        if ((this.amount + amt) > (7 * this.dailyUsage)) {
             setAmount(amount + amt);
             return true;
         } else {
@@ -67,14 +67,10 @@ public class Necessity {
     // REQUIRES: amount >= 0
     // EFFECTS: return true if the necessity is gonna run out in a week
     public boolean runOutInWeek() {
-        return amount / dailyUsage <= 7;
+        return amount / dailyUsage < 8;
     }
 
     public void updateNecessity() {
-        if (amount - dailyUsage <= 0.0) {
-            this.amount = 0.0;
-        } else {
-            this.amount = amount - dailyUsage;
-        }
+        this.amount = Math.max(amount - dailyUsage, 0.0);
     }
 }

@@ -17,7 +17,7 @@ class NecessityTest {
     public void testMakeEnoughPurchase() {
         tn.setDailyUsage(1.0);
         assertEquals(tn.getDailyUsage(), 1.0);
-        assertTrue(tn.makePurchase(7.0));
+        assertTrue(tn.makePurchase(8.0));
     }
 
     @Test

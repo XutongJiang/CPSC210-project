@@ -76,7 +76,7 @@ public class NecessitiesTest {
     @Test
     public void testReturnNotInListNecessity() {
         tns.addNecessity(tn);
-        assertEquals(tns.returnGivenNecessity("test2"), null);
+        assertNull(tns.returnGivenNecessity("test2"));
     }
 
     @Test
@@ -96,8 +96,14 @@ public class NecessitiesTest {
         Necessity tn2 = new Necessity("test2", 2.0, 1.0);
         tns.addNecessity(tn);
         tns.addNecessity(tn2);
-        tns.updateNecessities();
+        boolean test = tns.updateNecessities();
+        assertTrue(test);
         assertEquals(tn.getAmount(), 9.0);
         assertEquals(tn2.getAmount(), 0.0);
+    }
+
+    @Test
+    public  void testUpdateEmptyList() {
+        assertFalse(tns.updateNecessities());
     }
 }

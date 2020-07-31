@@ -104,9 +104,16 @@ public class Necessities {
 
     //MODIFIES: this
     //EFFECTS: update every necessity in the list by subtracting daily usage from remaining amount
-    public void updateNecessities() {
-        for (Necessity i : necessities) {
-            i.updateNecessity();
+    public boolean updateNecessities() {
+        if (!necessities.isEmpty()) {
+            for (Necessity i : necessities) {
+                i.updateNecessity();
+            }
+            System.out.println("All of the necessities in the list have been updated!");
+            return true;
+        } else {
+            System.out.println("It seems that currently there isn't any necessity in the list.");
+            return false;
         }
     }
 
