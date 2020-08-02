@@ -57,4 +57,10 @@ class NecessityTest {
         assertFalse(tn2.runOutInWeek());
         assertTrue(tn3.runOutInWeek());
     }
+
+    @Test
+    public void testConstructorWithId() {
+        Necessity tnWithId = new Necessity(2, 1, "test", 1.0, 10.0);
+        assertEquals(tnWithId.getId(), 1);
+    }
 }

@@ -65,7 +65,7 @@ public class NecessitiesManager {
     private void makeSelection() {
         newList = new LinkedList<>();
         Scanner inp = new Scanner(System.in);
-        System.out.println("How can I help? Please choose from the following two options by simply type a, b, c or d.");
+        System.out.println("Please choose from the following options by simply type a, b, c, d, e or f.");
         System.out.println("a. Check the status of one certain necessity.");
         System.out.println("b. Make change on necessities.");
         System.out.println("c. Get a alert of what will run out in the following week.");

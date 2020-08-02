@@ -54,7 +54,7 @@ public class Necessity implements Savable {
         return (int) (amount / dailyUsage);
     }
 
-    public int getID() {
+    public int getId() {
         return  id;
     }
 
