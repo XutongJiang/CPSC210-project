@@ -16,6 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+//test Writer
 public class WriterTest {
 
     private static final String TEST_FILE = "./data/testNecessities.txt";
