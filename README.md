@@ -16,3 +16,5 @@ run out soon and thus make a purchase as soon as possible.
 every time I refresh.
 - As a user, I want to be able to check what necessities will run out recently (like 7 days).
 - As a user, I would like to know how many days later one certain necessity is going to run out.
+- As a user, I want to be able to save my necessities list to a file.
+- As a user, I want to be able to optionally load my necessities list from a file when the program starts.

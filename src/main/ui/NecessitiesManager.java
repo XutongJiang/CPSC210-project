@@ -2,15 +2,24 @@ package ui;
 
 import model.Necessities;
 import model.Necessity;
+import persistence.Reader;
+import persistence.Writer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.Scanner;
+
+import static org.omg.CORBA.ORB.init;
 
 // Necessities management and notification application
 public class NecessitiesManager {
     private Scanner input;
     private Necessities currentList;
     private LinkedList<String> newList;
+    private static final String NECESSITIES_FILE = "./data/necessities.txt";
 
     public NecessitiesManager() {
         runManager();
@@ -21,7 +30,35 @@ public class NecessitiesManager {
         input = new Scanner(System.in);
         currentList = new Necessities();
 
+        loadList();
         makeSelection();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads necessities list from NECESSITIES_FILE, if that file exists;
+    // otherwise initializes an empty list
+    private void loadList() {
+        try {
+            currentList = Reader.readNecessities(new File(NECESSITIES_FILE));
+        } catch (IOException e) {
+            init();
+        }
+    }
+
+    // EFFECTS: saves state of necessities list to ACCOUNTS_FILE
+    private void saveNecessity(Necessities n) {
+        try {
+            Writer writer = new Writer(new File(NECESSITIES_FILE));
+            n.saveList(writer);
+            writer.close();
+            System.out.println("The current necessities list has been successfully saved!");
+            System.out.println();
+            makeSelection();
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save Necessity to the list.");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     //EFFECTS: provide several selections and take to different result.
@@ -33,7 +70,8 @@ public class NecessitiesManager {
         System.out.println("b. Make change on necessities.");
         System.out.println("c. Get a alert of what will run out in the following week.");
         System.out.println("d. Update list (Use it once a day unless you use extra amount).");
-        System.out.println("e. Exit the program.");
+        System.out.println("e. Save list.");
+        System.out.println("f. Exit the program.");
         String selection = inp.nextLine();
         makeSelection(selection);
 
@@ -53,6 +91,9 @@ public class NecessitiesManager {
                 break;
             case "d":
                 updateList();
+                break;
+            case "e":
+                saveNecessity(currentList);
                 break;
             default:
                 System.out.println("See you next time!");
@@ -82,7 +123,6 @@ public class NecessitiesManager {
             System.out.println("Sorry, we cannot find the necessity you just entered in the list, so we will go back "
                     + "to the main menu.");
         }
-        System.out.println();
         makeSelection();
     }
 

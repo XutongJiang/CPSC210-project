@@ -1,5 +1,9 @@
 package model;
 
+import persistence.Savable;
+import persistence.Writer;
+
+import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -114,6 +118,14 @@ public class Necessities {
         } else {
             System.out.println("It seems that currently there isn't any necessity in the list.");
             return false;
+        }
+    }
+
+    // MODIFIES: printWriter
+    // EFFECTS: record the savable to printWriter
+    public void saveList(Writer writer) {
+        for (Necessity necessity: necessities) {
+            writer.write(necessity);
         }
     }
 

@@ -1,13 +1,19 @@
 package model;
 
+import persistence.Reader;
+import persistence.Savable;
+
+import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Date;
 
 // Represents a necessity of life with its name, average daily usage and remaining amount
-public class Necessity {
+public class Necessity implements Savable {
     private String name;
     private double dailyUsage;
     private double amount;
+    private static int nextNecessityId = 1;
+    private int id;
 
     // REQUIRES: both amount and dailyUsage >= 0,
     //           y, m, d together form a valid date.
@@ -16,6 +22,17 @@ public class Necessity {
     //          remaining amount of necessity is set to amt,
     //          last checked date is set to y, m, d
     public Necessity(String nam, double usage, double amt) {
+        id = nextNecessityId++;
+        this.name = nam;
+        this.dailyUsage = usage;
+        this.amount = amt;
+    }
+
+    // This constructor is to be used only when constructing
+    // an account from data stored in file
+    public Necessity(int nextId, int id, String nam, double usage, double amt) {
+        nextNecessityId = nextId;
+        this.id = id;
         this.name = nam;
         this.dailyUsage = usage;
         this.amount = amt;
@@ -35,6 +52,10 @@ public class Necessity {
 
     public int getRemainingDay() {
         return (int) (amount / dailyUsage);
+    }
+
+    public int getID() {
+        return  id;
     }
 
     //MODIFIES: this
@@ -73,4 +94,18 @@ public class Necessity {
     public void updateNecessity() {
         this.amount = Math.max(amount - dailyUsage, 0.0);
     }
+
+    @Override
+    public void save(PrintWriter printWriter) {
+        printWriter.print(nextNecessityId);
+        printWriter.print(Reader.DELIMITER);
+        printWriter.print(id);
+        printWriter.print(Reader.DELIMITER);
+        printWriter.print(name);
+        printWriter.print(Reader.DELIMITER);
+        printWriter.print(dailyUsage);
+        printWriter.print(Reader.DELIMITER);
+        printWriter.println(amount);
+    }
+
 }
