@@ -2,6 +2,7 @@ package Persistence;
 
 import model.Necessities;
 import model.Necessity;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import persistence.Reader;
 
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ReaderTest {
-
+    Reader testReader = new Reader();
 
     @Test
     void testIOException() {
