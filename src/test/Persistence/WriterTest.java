@@ -22,11 +22,15 @@ public class WriterTest {
     private static final String TEST_FILE = "./data/testNecessities.txt";
     private Writer testWriter;
     private Necessity tn;
+    private Necessities tns;
 
     @BeforeEach
     void runBefore() throws FileNotFoundException, UnsupportedEncodingException {
         testWriter = new Writer(new File(TEST_FILE));
         tn = new Necessity(2,1,"test", 1.0, 10.0);
+        tns = new Necessities();
+        tns.addNecessity(tn);
+        tns.saveList(testWriter);
     }
 
     @Test

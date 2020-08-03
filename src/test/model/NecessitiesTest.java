@@ -103,7 +103,8 @@ public class NecessitiesTest {
     }
 
     @Test
-    public  void testUpdateEmptyList() {
+    public void testUpdateEmptyList() {
         assertFalse(tns.updateNecessities());
     }
+
 }
