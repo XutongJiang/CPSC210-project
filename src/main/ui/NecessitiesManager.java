@@ -5,6 +5,10 @@ import model.Necessity;
 import persistence.Reader;
 import persistence.Writer;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,22 +19,204 @@ import java.util.Scanner;
 import static org.omg.CORBA.ORB.init;
 
 // Necessities management and notification application
-public class NecessitiesManager {
-    private Scanner input;
-    private Necessities currentList;
+public class NecessitiesManager extends JFrame {
+    private Scanner input = new Scanner(System.in);
+    private Necessities currentList = new Necessities();
     private LinkedList<String> newList;
     private static final String NECESSITIES_FILE = "./data/necessities.txt";
 
     public NecessitiesManager() {
-        runManager();
+        super("Necessities Manager");
+        loadList();
+        JPanel cards = new JPanel(new CardLayout());
+        JPanel jp1 = new JPanel();
+        JLabel jl1 = new JLabel("Thank you for using my Necessities Manager, "
+                + "your file has been loaded from last saving.");
+        jp1.add(jl1);
+        jp1Buttons(jp1, cards);
+        cards.add(jp1, "card1");
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        cl.show(cards, "card1");
+        add(cards);
+        setBounds(600, 300, 600, 400);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //runManager();
+    }
+
+    //EFFECTS: set properties of jp2
+    public void setJp2(JPanel cards) {
+        JPanel jp2 = new JPanel();
+        JLabel jl2 = new JLabel("The following item(s) is currently in the list: " + currentList.returnCurrentList());
+        jp2.add(jl2);
+        JButton btn7 = new JButton("Go Back To Main Menu");
+        jp2.add(btn7);
+        displayInformation(jp2);
+        goBackMainMenu(cards, btn7);
+        cards.add(jp2,"card2");
+    }
+
+    //EFFECTS: set a listener which will lead user to main menu
+    public void goBackMainMenu(JPanel cards, JButton btn7) {
+        btn7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) (cards.getLayout());
+                cl.show(cards, "card1");
+            }
+        });
+    }
+
+    //EFFECTS: display all the items and their information
+    public void displayInformation(JPanel jp) {
+        for (String s : currentList.returnCurrentList()) {
+            double amt = currentList.returnSpecificAmount(s);
+            double du = currentList.returnSpecificUsage(s);
+            int day = currentList.returnRemainingDay(s);
+            JLabel jln = new JLabel(s + "'s remaining amount: " + amt + ", daily usage: " + du + ", will run out"
+                    + " in " + day + " day(s)");
+            jp.add(jln);
+        }
+    }
+
+    public void jp1Buttons(JPanel jp, JPanel cards) {
+        JButton btn1 = new JButton("Check Status");
+        JButton btn2 = new JButton("Make Change");
+        JButton btn3 = new JButton("Get Alert");
+        JButton btn4 = new JButton("Update List");
+        JButton btn5 = new JButton("Save List");
+        JButton btn6 = new JButton("Exit");
+        setButton1(cards, btn1);
+        setButton5(cards, btn5);
+        setButton2(cards, btn2);
+        exitButton(btn6);
+        jp.add(btn1);
+        jp.add(btn2);
+        jp.add(btn3);
+        jp.add(btn4);
+        jp.add(btn5);
+        jp.add(btn6);
+    }
+
+    //EFFECTS: set function of button1
+    public void setButton1(JPanel cards, JButton btn1) {
+        btn1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setJp2(cards);
+                CardLayout cl = (CardLayout) (cards.getLayout());
+                cl.show(cards, "card2");
+            }
+        });
+    }
+
+    //EFFECTS: set function of button2
+    public void setButton2(JPanel cards, JButton btn2) {
+        btn2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanel jp4 = new JPanel();
+                JLabel jl4 = new JLabel();
+                JButton btn9 = new JButton("Add Amount");
+                JButton btn10 = new JButton("Add Necessity");
+                JButton btn11 = new JButton("Remove Necessity");
+                JButton btn12 = new JButton("Go Back To Main Menu");
+                goBackMainMenu(cards, btn12);
+                setButton9(jp4, jl4, btn9);
+                btn10.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                    }
+                });
+                jp4.add(jl4);
+                jp4.add(btn9);
+                jp4.add(btn10);
+                jp4.add(btn11);
+                jp4.add(btn12);
+                cards.add(jp4, "card4");
+                CardLayout cl = (CardLayout) (cards.getLayout());
+                cl.show(cards, "card4");
+            }
+        });
+    }
+
+    //EFFECTS: set function of button5
+    public void setButton5(JPanel cards, JButton btn5) {
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        btn5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Writer writer = new Writer(new File(NECESSITIES_FILE));
+                    currentList.saveList(writer);
+                    writer.close();
+                    JPanel jp3 = new JPanel();
+                    JLabel jl3 = new JLabel("The list has been successfully saved!");
+                    JButton btn8 = new JButton("Go Back To Main Menu");
+                    setButton8(btn8, cards, cl);
+                    jp3.add(jl3);
+                    jp3.add(btn8);
+                    cards.add(jp3, "card3");
+                    cl.show(cards, "card3");
+                } catch (FileNotFoundException e1) {
+                    cl.show(cards, "card1");
+                } catch (UnsupportedEncodingException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+    }
+
+    //EFFECTS: set the function of button8
+    public void setButton8(JButton jb, JPanel card, CardLayout cardLayout) {
+        jb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(card, "card1");
+            }
+        });
+
+    }
+
+    //EFFECTS: set the function of button9
+    public void setButton9(JPanel jp4, JLabel jl4, JButton btn9) {
+        btn9.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String result = (String) JOptionPane.showInputDialog(
+                        jp4, "Please Type the name: ", "Input", JOptionPane.PLAIN_MESSAGE);
+                if (!currentList.checkNecessity(result)) {
+                    jl4.setText("The necessity is not in the list!");
+                } else {
+                    String result2 = (String) JOptionPane.showInputDialog(
+                            jp4,
+                            "Please Type the amount you want to add: ",
+                            "Input",
+                            JOptionPane.PLAIN_MESSAGE
+                    );
+                    Double dou = Double.valueOf(result2.toString());
+                    Necessity n = currentList.returnGivenNecessity(result);
+                    n.setAmount(n.getAmount() + dou);
+                    jl4.setText("Adding successfully done! Now there are " + n.getAmount() + " " + n.getName()
+                            + " which will last for " + n.getRemainingDay() + " day(s)");
+                }
+            }
+        });
+    }
+
+    //EFFECTS: exit the program when choose f
+    public void exitButton(JButton btn6) {
+        btn6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
     }
 
     // EFFECTS: run the manager application
     public void runManager() {
-        input = new Scanner(System.in);
-        currentList = new Necessities();
-
-        loadList();
         makeSelection();
     }
 
@@ -97,6 +283,7 @@ public class NecessitiesManager {
                 break;
             default:
                 System.out.println("See you next time!");
+                System.exit(0);
                 break;
         }
     }
@@ -104,6 +291,7 @@ public class NecessitiesManager {
     //EFFECTS: let users check current status of a necessity if it exists in the list,
     //         if the amount is <= 0, ask the user to make purchase until it is above 0
     public void checkNecessities() {
+        System.out.println("The following item(s) is currently in the list: " + currentList.returnCurrentList());
         System.out.println("What necessity would you like to check? Please type in the name "
                 + "with all characters in lowercase: ");
         String checked = input.next();
@@ -125,6 +313,7 @@ public class NecessitiesManager {
         }
         makeSelection();
     }
+
 
     //EFFECTS: let user choose from the three options which would make change to the list
     public void makeChangeNecessities() {
@@ -251,5 +440,11 @@ public class NecessitiesManager {
         makeSelection();
     }
 
+    public static void main(String[] args) {
+        //    System.out.println("Thank you for using this necessities manager, let's get tarted!");
+        //    System.out.println("It is recommended to save the necessities list after each time you make change to it,"
+        //            + "otherwise you may lose the updated information after exiting.");
+        new NecessitiesManager();
+    }
 
 }

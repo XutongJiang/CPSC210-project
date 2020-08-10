@@ -129,4 +129,13 @@ public class Necessities {
         }
     }
 
+    // EFFECTS: returns the current list of all necessities
+    public LinkedList<String> returnCurrentList() {
+        LinkedList<String> list = new LinkedList<>();
+        for (Necessity i : necessities) {
+            list.add(i.getName());
+        }
+        return list;
+    }
+
 }

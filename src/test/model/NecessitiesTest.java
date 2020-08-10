@@ -107,4 +107,16 @@ public class NecessitiesTest {
         assertFalse(tns.updateNecessities());
     }
 
+    @Test
+    public void testThrewNullException() {
+        assertFalse(tns.checkNecessity(null));
+    }
+
+    @Test
+    public void testReturnCurrentList() {
+        tns.addNecessity(tn);
+        LinkedList<String> list = new LinkedList<>();
+        list.add("test");
+        assertEquals(tns.returnCurrentList(), list);
+    }
 }

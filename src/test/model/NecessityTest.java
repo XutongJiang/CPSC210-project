@@ -63,4 +63,5 @@ class NecessityTest {
         Necessity tnWithId = new Necessity(2, 1, "test", 1.0, 10.0);
         assertEquals(tnWithId.getId(), 1);
     }
+
 }
