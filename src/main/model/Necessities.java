@@ -18,7 +18,7 @@ public class Necessities {
     }
 
     //EFFECTS: check if the certain type of necessity has already existed in the necessities list.
-    public boolean checkNecessity(String n) {
+    public boolean checkNecessity(String n) throws NullPointerException {
         for (Necessity i : necessities) {
             if (n.equals(i.getName())) {
                 return true;
@@ -124,7 +124,7 @@ public class Necessities {
     // MODIFIES: printWriter
     // EFFECTS: record the savable to printWriter
     public void saveList(Writer writer) {
-        for (Necessity necessity: necessities) {
+        for (Necessity necessity : necessities) {
             writer.write(necessity);
         }
     }
