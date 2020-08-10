@@ -18,3 +18,13 @@ every time I refresh.
 - As a user, I would like to know how many days later one certain necessity is going to run out.
 - As a user, I want to be able to save my necessities list to a file.
 - As a user, I want to be able to optionally load my necessities list from a file when the program starts.
+
+##**Instructions for Grader**
+- The first event is adding necessity to the list, you can generate it by click Make Change and then Add Necessity.
+You can check the event by clicking Check Status in the main menu afterwards.
+- The second event is removing necessity from the list, you can generate it by click Make Change and then 
+Remove Necessity. You can check whether the event has been removed by clicking Check Status in the main menu afterwards.
+- You can locate my visual component by 
+- You can save the state of the list by clicking the Save List in the main menu.
+- The Necessities Manager will automatically load the list every time you run it, so you do not need to do anything to 
+load the list.

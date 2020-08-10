@@ -53,7 +53,7 @@ public class NecessitiesManager extends JFrame {
         jp2.add(btn7);
         displayInformation(jp2);
         goBackMainMenu(cards, btn7);
-        cards.add(jp2,"card2");
+        cards.add(jp2, "card2");
     }
 
     //EFFECTS: set a listener which will lead user to main menu
@@ -77,6 +77,9 @@ public class NecessitiesManager extends JFrame {
                     + " in " + day + " day(s)");
             jp.add(jln);
         }
+        ImageIcon img = new ImageIcon("./data/unnamed.jpg");
+        JLabel jlVisual = new JLabel(img);
+        jp.add(jlVisual);
     }
 
     public void jp1Buttons(JPanel jp, JPanel cards) {
@@ -123,12 +126,8 @@ public class NecessitiesManager extends JFrame {
                 JButton btn12 = new JButton("Go Back To Main Menu");
                 goBackMainMenu(cards, btn12);
                 setButton9(jp4, jl4, btn9);
-                btn10.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                    }
-                });
+                setButton10(jp4, jl4, btn10);
+                setButton11(jp4, jl4, btn11);
                 jp4.add(jl4);
                 jp4.add(btn9);
                 jp4.add(btn10);
@@ -201,6 +200,50 @@ public class NecessitiesManager extends JFrame {
                     jl4.setText("Adding successfully done! Now there are " + n.getAmount() + " " + n.getName()
                             + " which will last for " + n.getRemainingDay() + " day(s)");
                 }
+            }
+        });
+    }
+
+    //EFFECTS: set function of button10 which add items to the list
+    public void setButton10(JPanel jp4, JLabel jl4, JButton btn10) {
+        btn10.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String result3 = (String) JOptionPane.showInputDialog(
+                        jp4, "Please Type the name: ", "Input", JOptionPane.PLAIN_MESSAGE);
+                if (currentList.checkNecessity(result3)) {
+                    jl4.setText("The necessity is already in the list!");
+                } else {
+                    String result4 = (String) JOptionPane.showInputDialog(
+                            jp4, "Please set the estimate daily usage of the necessity: ", "Input",
+                            JOptionPane.PLAIN_MESSAGE);
+                    String result5 = (String) JOptionPane.showInputDialog(
+                            jp4, "Please set the amount of the necessity: ", "Input",
+                            JOptionPane.PLAIN_MESSAGE);
+                    Double dou = Double.valueOf(result4.toString());
+                    Double dou2 = Double.valueOf(result5.toString());
+                    Necessity addOne = new Necessity(result3, dou, dou2);
+                    currentList.addNecessity(addOne);
+                    jl4.setText("The necessity has been successfully added!");
+                }
+            }
+        });
+    }
+
+    //EFFECTS: set the function of button11 which remove a necessity from the list
+    public void setButton11(JPanel jp4, JLabel jl4, JButton btn11) {
+        btn11.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String result6 = (String) JOptionPane.showInputDialog(
+                        jp4, "Please Type the name: ", "Input", JOptionPane.PLAIN_MESSAGE);
+                if (!currentList.checkNecessity(result6)) {
+                    jl4.setText("The necessity is not in the list!");
+                } else {
+                    currentList.removeNecessity(result6);
+                    jl4.setText("The necessity has been successfully removed!");
+                }
+
             }
         });
     }
