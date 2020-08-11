@@ -25,6 +25,8 @@ You can check the event by clicking Check Status in the main menu afterwards.
 - The second event is removing necessity from the list, you can generate it by click Make Change and then 
 Remove Necessity. You can check whether the event has been removed by clicking Check Status in the main menu afterwards.
 - You can locate my visual component by clicking check status, there will be a picture of some necessities.
+You can trigger my audio component by clicking Update List, then click Update, if the list is successfully updated, 
+you will hear a notification background sound.
 - You can save the state of the list by clicking the Save List in the main menu.
 - The Necessities Manager will automatically load the list every time you run it, so you do not need to do anything to 
 load the list.

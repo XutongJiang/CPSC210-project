@@ -5,6 +5,7 @@ import model.Necessity;
 import persistence.Reader;
 import persistence.Writer;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.applet.AudioClip;
 import java.awt.*;
@@ -43,6 +44,23 @@ public class NecessitiesManager extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //runManager();
+    }
+
+    //EFFECTS: plays sound when certain event happens
+    public void playSound() {
+        try {
+            AudioInputStream audioInputStream =
+                    AudioSystem.getAudioInputStream(new File("./data/windowsBackground.wav").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
     }
 
     //EFFECTS: set properties of jp2
@@ -170,6 +188,30 @@ public class NecessitiesManager extends JFrame {
         });
     }
 
+    //EFFECTS: set the function of button4
+    public void setButton4(JPanel cards, JButton btn4) {
+        btn4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanel jp5 = new JPanel();
+                JLabel jl5 = new JLabel("Every necessity in the list will be updated by subtracting daily usage from"
+                        + " amount. If you want to do so, please click the button.");
+                JLabel jl6 = new JLabel();
+                JButton btn12 = new JButton("Update");
+                JButton btn13 = new JButton("Go Back To Main Menu");
+                goBackMainMenu(cards, btn13);
+                jp5.add(jl5);
+                jp5.add(btn12);
+                jp5.add(btn13);
+                jp5.add(jl6);
+                cards.add(jp5, "card5");
+                CardLayout cl = (CardLayout) (cards.getLayout());
+                cl.show(cards, "card5");
+                setButton12(jl6, btn12);
+            }
+        });
+    }
+
     //EFFECTS: set function of button5
     public void setButton5(JPanel cards, JButton btn5) {
         CardLayout cl = (CardLayout) (cards.getLayout());
@@ -193,6 +235,16 @@ public class NecessitiesManager extends JFrame {
                 } catch (UnsupportedEncodingException e1) {
                     e1.printStackTrace();
                 }
+            }
+        });
+    }
+
+    //EFFECTS: exit the program when choose f
+    public void setButton6(JButton btn6) {
+        btn6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
     }
@@ -283,43 +335,10 @@ public class NecessitiesManager extends JFrame {
                 boolean updateInf = currentList.updateNecessities();
                 if (updateInf) {
                     jl6.setText("The list has been successfully updated!");
+                    playSound();
                 } else {
                     jl6.setText("It seems currently there isn't any necessity in the list.");
                 }
-            }
-        });
-    }
-
-    //EFFECTS: set the function of button4
-    public void setButton4(JPanel cards, JButton btn4) {
-        btn4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JPanel jp5 = new JPanel();
-                JLabel jl5 = new JLabel("Every necessity in the list will be updated by subtracting daily usage from"
-                        + " amount. If you want to do so, please click the button.");
-                JLabel jl6 = new JLabel();
-                JButton btn12 = new JButton("Update");
-                JButton btn13 = new JButton("Go Back To Main Menu");
-                goBackMainMenu(cards, btn13);
-                jp5.add(jl5);
-                jp5.add(btn12);
-                jp5.add(btn13);
-                jp5.add(jl6);
-                cards.add(jp5, "card5");
-                CardLayout cl = (CardLayout) (cards.getLayout());
-                cl.show(cards, "card5");
-                setButton12(jl6, btn12);
-            }
-        });
-    }
-
-    //EFFECTS: exit the program when choose f
-    public void setButton6(JButton btn6) {
-        btn6.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
             }
         });
     }
