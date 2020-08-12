@@ -30,3 +30,14 @@ you will hear a notification background sound.
 - You can save the state of the list by clicking the Save List in the main menu.
 - The Necessities Manager will automatically load the list every time you run it, so you do not need to do anything to 
 load the list.
+
+##**Phase 4: Task 2**
+- The returnRemainingDay method in Necessities class now throw a NotInListException. The exception will be caught in 
+CheckStatusButton class. Both thrown and not thrown cases have been tested.
+
+##**Phase 4: Task 3**
+- Button 1 and its following buttons can be exacted to form a new class called CheckStatusButton which extends Button to
+improve the cohesion of NecessitiesManager
+- Button 5 and button8 can be exacted to form a new class called SaveListButton to improve the cohesion of NecessitiesManager.
+**The two problems above has been solved.**
+- Another four buttons and their containing buttons can also be extracted to form new classes.

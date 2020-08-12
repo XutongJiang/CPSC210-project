@@ -91,6 +91,7 @@ public class Necessity implements Savable {
         return amount / dailyUsage < 8;
     }
 
+    //EFFECTS: update the list by subtracting dailyUsage from amount.
     public void updateNecessity() {
         this.amount = Math.max(amount - dailyUsage, 0.0);
     }

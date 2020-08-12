@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.NotInListException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -67,10 +68,25 @@ public class NecessitiesTest {
     }
 
     @Test
-    public void testReturnRemainingDay() {
+    public void testReturnRemainingDay() throws NotInListException {
         tns.addNecessity(tn);
-        assertEquals(tns.returnRemainingDay(tn.getName()), 10);
-        assertEquals(tns.returnRemainingDay("random"), 0);
+        try {
+            int day = tns.returnRemainingDay(tn.getName());
+            assertEquals(day,10);
+        } catch (NotInListException e) {
+            fail("exception should not be thrown");
+        }
+    }
+
+    @Test
+    public void testReturnRemainingDayException() throws NotInListException {
+        tns.addNecessity(tn);
+        try {
+            tns.returnRemainingDay("random");
+            fail();
+        } catch (NotInListException e) {
+            // The exception should be thrown since random is not in list
+        }
     }
 
     @Test

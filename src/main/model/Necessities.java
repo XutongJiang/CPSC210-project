@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.NotInListException;
 import persistence.Savable;
 import persistence.Writer;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 // Represents a list of the remaining necessities at home
-public class Necessities {
+public class Necessities extends NotInListException {
     LinkedList<Necessity> necessities;
 
     //EFFECTS: initialize each newly created necessities list as an empty list
@@ -76,13 +77,13 @@ public class Necessities {
 
     //REQUIRES: the necessity with give name must have been found in the list
     //EFFECTS: returns the remaining days of the necessity with the given name
-    public int returnRemainingDay(String s) {
+    public int returnRemainingDay(String s) throws NotInListException {
         for (Necessity i : necessities) {
             if (s.equals(i.getName())) {
                 return i.getRemainingDay();
             }
         }
-        return 0;
+        throw new NotInListException();
     }
 
     //REQUIRES: the necessity must be in the necessities list

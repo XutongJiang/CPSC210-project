@@ -55,6 +55,4 @@ public class WriterTest {
             fail("IOException should not have been thrown");
         }
     }
-
-
 }
