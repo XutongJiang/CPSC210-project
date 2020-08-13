@@ -1,12 +1,8 @@
 package model;
 
 import exceptions.NotInListException;
-import persistence.Savable;
 import persistence.Writer;
 
-import java.io.PrintWriter;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 // Represents a list of the remaining necessities at home

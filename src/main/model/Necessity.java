@@ -4,8 +4,6 @@ import persistence.Reader;
 import persistence.Savable;
 
 import java.io.PrintWriter;
-import java.util.Calendar;
-import java.util.Date;
 
 // Represents a necessity of life with its name, average daily usage and remaining amount
 public class Necessity implements Savable {

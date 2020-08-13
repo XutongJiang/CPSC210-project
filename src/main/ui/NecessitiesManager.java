@@ -12,13 +12,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 import static org.omg.CORBA.ORB.init;
 
 // Necessities management and notification application
 public class NecessitiesManager extends JFrame {
-    private Scanner input = new Scanner(System.in);
     private Necessities currentList = new Necessities();
     private LinkedList<String> newList;
     private static final String NECESSITIES_FILE = "./data/necessities.txt";
