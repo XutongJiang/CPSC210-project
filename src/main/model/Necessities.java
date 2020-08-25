@@ -5,7 +5,7 @@ import persistence.Writer;
 
 import java.util.LinkedList;
 
-// Represents a list of the remaining necessities at home
+// Represents a list of the remaining necessities at home.
 public class Necessities extends NotInListException {
     LinkedList<Necessity> necessities;
 
